@@ -5,7 +5,7 @@ import multer from 'multer';
 import { loginValidation, registerValidation, postCreateValidation } from './validations.js';
 import checkAuth from './utils/checkAuth.js';
 import { register, login, getMe } from './controllers/UserController.js';
-import { create, getAll, remove, getOne, update } from './controllers/PostControllers.js';
+import { create, getAll, remove, getOne, update, getLastTags } from './controllers/PostControllers.js';
 import handleValidationsErrors from './utils/handleValidationsErrors.js';
 
 mongoose.connect('mongodb+srv://mark:kaccel2010@cluster0.yfahk.mongodb.net/blog?retryWrites=true&w=majority')
@@ -47,6 +47,7 @@ app.get('/posts', checkAuth, getAll);
 app.get('/posts/:id', checkAuth, getOne);
 app.delete('/posts/:id', checkAuth, remove);
 app.patch('/posts/:id', checkAuth, postCreateValidation, handleValidationsErrors, update);
+app.get('/tags', getLastTags);
 // по логике на любые попрытки изменить пост надо проверять аус
 
 app.listen(PORT, (err) => err ? console.log(err) : console.log(`Server has started on port ${PORT}`));
